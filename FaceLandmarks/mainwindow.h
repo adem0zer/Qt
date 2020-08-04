@@ -7,6 +7,7 @@
 
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+#include <QGraphicsPixmapItem>
 
 #include <dlib/opencv.h>
 #include <dlib/image_io.h>
@@ -40,10 +41,11 @@ private slots:
     void on_btnOpenCamera_clicked();
 
     void on_btnCloseCamera_clicked();
+    void show_frame(Mat &);
 
 private:
     Ui::MainWindow *ui;
-
+    QGraphicsScene* scene;
     QTimer *timer;
     VideoCapture cap;
 
@@ -53,6 +55,5 @@ private:
     frontal_face_detector detector;
     shape_predictor shape_model;
 
-    void show_frame(Mat &);
 };
 #endif // MAINWINDOW_H

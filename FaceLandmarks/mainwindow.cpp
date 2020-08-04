@@ -3,6 +3,8 @@
 #include <QObject>
 #include <QTimer>
 #include <QProcess>
+#include <QPixmap>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     timer = new QTimer(this);
+    scene = new QGraphicsScene();
 }
 
 MainWindow::~MainWindow()
@@ -100,17 +103,23 @@ void MainWindow::show_frame(Mat &image)
 {
     Mat resized_image = image.clone();
 
-    int width_of_label = ui->lblCamera->width();
-    int height_of_label = ui->lblCamera->height();
+    int width_of_label = ui->graphicsView->width();
+    int height_of_label = ui->graphicsView->height();
 
     Size size(width_of_label, height_of_label);
 
     cv::resize(image, resized_image, size);
 
-    cvtColor(resized_image, resized_image, COLOR_RGB2BGR);
+    cvtColor(resized_image, resized_image, COLOR_BGR2RGB);
 
     QImage qt_image((const unsigned char*) (resized_image.data), resized_image.cols, resized_image.rows, QImage::Format_RGB888);
 
-    ui->lblCamera->setPixmap(QPixmap::fromImage(qt_image));
+    //ui->graphicsView->setPixmap(QPixmap::fromImage(qt_image));
+
+    ui->graphicsView->setScene(scene);
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(qt_image));
+    scene->addItem(item);
+    ui->graphicsView->show();
+
 }
 
