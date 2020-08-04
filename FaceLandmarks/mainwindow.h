@@ -41,7 +41,7 @@ private slots:
     void on_btnOpenCamera_clicked();
 
     void on_btnCloseCamera_clicked();
-    void show_frame(Mat &);
+
 
 private:
     Ui::MainWindow *ui;
@@ -52,6 +52,7 @@ private:
     Mat frame;
     QImage qt_image;
 
+    void show_frame(Mat &);
     frontal_face_detector detector;
     shape_predictor shape_model;
 

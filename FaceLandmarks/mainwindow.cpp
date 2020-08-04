@@ -112,9 +112,9 @@ void MainWindow::show_frame(Mat &image)
 
     cvtColor(resized_image, resized_image, COLOR_BGR2RGB);
 
-    QImage qt_image((const unsigned char*) (resized_image.data), resized_image.cols, resized_image.rows, QImage::Format_RGB888);
+    QImage qt_image((const unsigned char*) (resized_image.data), resized_image.cols, resized_image.rows, resized_image.step, QImage::Format_RGB888);
 
-    //ui->label->setPixmap(QPixmap::fromImage(qt_image));
+    //ui->graphicsView->setPixmap(QPixmap::fromImage(qt_image));
 
     ui->graphicsView->setScene(scene);
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(qt_image));
