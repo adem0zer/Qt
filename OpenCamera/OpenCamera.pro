@@ -26,7 +26,7 @@ FORMS += \
     mainwindow.ui
 
 include(/home/adem/FileFolderPri/opencvbuild.pri)
-include(/home/adem/FileFolderPri/dlib.pri)
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
