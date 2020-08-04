@@ -114,7 +114,7 @@ void MainWindow::show_frame(Mat &image)
 
     QImage qt_image((const unsigned char*) (resized_image.data), resized_image.cols, resized_image.rows, QImage::Format_RGB888);
 
-    //ui->graphicsView->setPixmap(QPixmap::fromImage(qt_image));
+    //ui->label->setPixmap(QPixmap::fromImage(qt_image));
 
     ui->graphicsView->setScene(scene);
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(qt_image));
