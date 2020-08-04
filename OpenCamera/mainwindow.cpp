@@ -27,20 +27,23 @@ MainWindow::~MainWindow()
 void MainWindow::open_video()
 {
     cap >> frame;
-    Mat resized_image = frame.clone();
+    Mat resized_image;
 
     int width_of_label = ui->graphicsView->width();
     int height_of_label = ui->graphicsView->height();
 
     Size size(width_of_label, height_of_label);
 
-    cv::resize(resized_image, resized_image, size);
 
+    cv::resize(frame, resized_image, size);
     cvtColor(resized_image, resized_image, COLOR_BGR2RGB);
 
-    QImage qt_image((const unsigned char*) (resized_image.data), resized_image.cols, resized_image.rows, QImage::Format_RGB888);
+
+
+    QImage qt_image((const unsigned char*) (resized_image.data), resized_image.cols, resized_image.rows, resized_image.step,QImage::Format_RGB888);
 
     //ui->lbl->setPixmap(QPixmap::fromImage(qt_image));
+    qt_image.bits();
 
     ui->graphicsView->setScene(scene);
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(qt_image));
@@ -51,7 +54,7 @@ void MainWindow::open_video()
 
 void MainWindow::close_video()
 {
-    cap.release ();
+    cap.release();
 }
 
 void MainWindow::on_btnClose_clicked()
@@ -66,6 +69,7 @@ void MainWindow::on_btnOpen_clicked()
     if(!cap.isOpened())  // Check if we succeeded
     {
         cout << "camera is not open" << endl;
+        return;
     }
     else
     {
@@ -74,7 +78,6 @@ void MainWindow::on_btnOpen_clicked()
         connect(timer, SIGNAL(timeout()), this, SLOT(open_video()));
         timer->start(20);
 
-        ui->btnClose->setEnabled(true);
-
     }
 }
+

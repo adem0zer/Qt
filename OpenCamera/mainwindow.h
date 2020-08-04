@@ -36,6 +36,7 @@ private slots:
     void on_btnOpen_clicked();
     void open_video();
 
+
 private:
     Ui::MainWindow *ui;
     Mat frame;
